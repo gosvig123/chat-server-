@@ -1,0 +1,50 @@
+{
+  "info": {
+    "_postman_id": "78e04e59-0586-41dd-ac21-e2b0dd5228b2",
+    "name": "arol.dev – Chat",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "3824"
+  },
+  "item": [
+    {
+      "name": "Get Messages",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Send Message",
+      "request": {
+        "method": "POST",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Add user",
+      "request": {
+        "method": "POST",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Get users",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Update user",
+      "request": {
+        "method": "PUT",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}

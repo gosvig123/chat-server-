@@ -1,0 +1,63 @@
+.ChatViewport,
+.UsersViewport {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ChatViewport {
+  overflow: auto;
+  padding: 2rem 2rem 0;
+}
+
+.Chat,
+.Users {
+  flex: 1;
+}
+
+.FormContainer {
+  width: 100%;
+}
+
+.Form {
+  display: flex;
+}
+.Form button[type='submit'] {
+  margin-left: 0.7em;
+}
+
+.Message {
+  margin: 0rem 0 2rem;
+  display: flex;
+}
+
+.Message.Message.OwnMessage {
+  justify-content: flex-end;
+}
+
+.Message .Container {
+  display: inline-block;
+  min-width: 20%;
+  background-color: #eaeaea;
+  padding: 1em;
+  border-radius: 4px;
+}
+.Message.OwnMessage .Container {
+  background-color: #036fe3;
+  color: white;
+}
+
+.Message span {
+  display: block;
+}
+.Message span.Author {
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 0.8rem;
+}
+.Message.OwnMessage span.Author {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.User {
+  margin-bottom: 1rem;
+}

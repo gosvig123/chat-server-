@@ -7,26 +7,25 @@
   },
   "item": [
     {
-      "name": "Get Messages",
-      "request": {
-        "method": "GET",
-        "header": []
-      },
-      "response": []
-    },
-    {
-      "name": "Send Message",
-      "request": {
-        "method": "POST",
-        "header": []
-      },
-      "response": []
-    },
-    {
       "name": "Add user",
       "request": {
         "method": "POST",
-        "header": []
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"Jon\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/users",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["users"]
+        }
       },
       "response": []
     },
@@ -34,7 +33,13 @@
       "name": "Get users",
       "request": {
         "method": "GET",
-        "header": []
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/users",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["users"]
+        }
       },
       "response": []
     },
@@ -42,6 +47,52 @@
       "name": "Update user",
       "request": {
         "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"previous\": \"Jon\",\n    \"new\": \"Tyrion\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/users",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["users"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Send Message",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"message\": \"Can I know something?\",\n    \"username\": \"Jon\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/messages",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["messages"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Messages",
+      "request": {
+        "method": "GET",
         "header": []
       },
       "response": []

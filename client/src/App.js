@@ -8,7 +8,7 @@ import {
   Notification,
   TextInput,
 } from '@contentful/f36-components'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useLayoutEffect } from 'react'
 
 function App() {
   const [baseURL, setBaseURL] = useState('http://localhost:8080')
@@ -19,49 +19,60 @@ function App() {
   const [users, setUsers] = useState([])
   const chatRef = useRef()
 
-  useEffect(() => {
-    const intervalID = setInterval(() => {
-      fetch(`${baseURL}/messages`)
-        .then((res) => res.json())
-        .then((newMessages) => {
+  function fetchMessages() {
+    fetch(`${baseURL}/messages`)
+      .then((res) => res.json())
+      .then((newMessages) => {
+        setMessages((messages) => {
           const messageIDs = messages.map((m) => m.id)
           const messagesToAdd = newMessages.filter((newMessage) => {
             return !messageIDs.includes(newMessage.id)
           })
           if (messagesToAdd.length === 0) {
-            return {}
+            return messages
           }
-          setMessages([...messages, ...messagesToAdd])
-          chatRef.current.scrollTop = chatRef.current.scrollHeight
+          return [...messages, ...messagesToAdd]
         })
-        .catch((error) => {
-          Notification.error(`Messages: ${error.message}`)
-          clearInterval(intervalID)
-        })
+      })
+      .catch((error) => {
+        Notification.error(`Messages: ${error.message}`)
+        clearInterval(intervalID)
+      })
+  }
 
-      fetch(`${baseURL}/users`)
-        .then((res) => res.json())
-        .then((newUsers) =>
-          setUsers([
-            ...users,
-            ...newUsers.filter(
-              (newUser) =>
-                !users.find((user) => user.username === newUser.username)
-            ),
-          ])
-        )
-        .catch((error) => {
-          Notification.error(`Users: ${error.message}`)
-          clearInterval(intervalID)
-        })
+  function fetchUsers() {
+    fetch(`${baseURL}/users`)
+      .then((res) => res.json())
+      .then((newUsers) =>
+        setUsers([
+          ...users,
+          ...newUsers.filter(
+            (newUser) =>
+              !users.find((user) => user.username === newUser.username)
+          ),
+        ])
+      )
+      .catch((error) => {
+        Notification.error(`Users: ${error.message}`)
+        clearInterval(intervalID)
+      })
+  }
 
-      setUsers(users)
-    }, 1000)
+  useEffect(() => {
+    fetchMessages()
+    fetchUsers()
+    const messagesIntervalID = setInterval(fetchMessages, 1000)
+    const usersIntervalID = setInterval(fetchUsers, 1000)
 
     return () => {
-      clearInterval(intervalID)
+      clearInterval(messagesIntervalID)
+      clearInterval(usersIntervalID)
     }
   }, [])
+
+  useLayoutEffect(() => {
+    chatRef.current.scrollTop = chatRef.current.scrollHeight
+  }, [messages, username])
 
   function handleInputChange(event) {
     setMessage(event.target.value)
@@ -183,14 +194,7 @@ function App() {
         <div className={styles.UsersViewport}>
           <div className={styles.Users}>
             <Heading element="h2">Participants</Heading>
-            {users.map((item, i) => (
-              <EntryCard
-                key={item.username}
-                className={styles.User}
-                status={item.username === username && 'You'}
-                title={item.username}
-              />
-            ))}
+            <UserList users={users} username={username} />
           </div>
           {!username && (
             <div className={styles.FormContainer}>
@@ -209,6 +213,21 @@ function App() {
         </div>
       </Workbench.Sidebar>
     </Workbench>
+  )
+}
+
+function UserList({ users, username }) {
+  return (
+    <div>
+      {users.map((item, i) => (
+        <EntryCard
+          key={item.username}
+          className={styles.User}
+          status={item.username === username && 'You'}
+          title={item.username}
+        />
+      ))}
+    </div>
   )
 }
 

@@ -12,7 +12,7 @@ In this exercise, you will implement a chat server. Production-ready chat server
 
 ## Instructions
 
-This is the first time you'll work with a Full-Stack system. For that, you're going to have not one, but many services running at the same time. That will be the client and the server for now. Later we're going to add the database.
+This is the first time you'll work with a Full-Stack system. For that, you're going to have not one, but many services running at the same time. That will be the client and the server for now. Later we're going to add the database. This means that while developing, you'll have to run two different servers (client and server), in two different terminal windows.
 
 #### The client
 
@@ -27,7 +27,7 @@ That will run the client, which will try to connect to your new server. As your 
 
 #### The server
 
-You have to create a server in the `server` folder. You can do the entire server in the `index.js` file or you can create different files and use import/export.
+You have to create a server application in the `server` folder. You can do the entire server in the `index.js` file or you can create different files and use import/export.
 
 To run the server, place your terminal in the `./server` folder and run there
 
@@ -56,6 +56,17 @@ Create a server that manages messages and users in a chat room.
 > Access-Control-Allow-Origin: *
 > Access-Control-Allow-Headers: 'Content-Type'
 > ```
+
+> **Storage:**
+>
+> We're not using a database for now so, for now, store the list of messages and users in as variables in your server application. That means that the list of users can be an array and the list of messages can be another one.
+> 
+> ```js
+> const users = []
+> const messages = []
+> ```
+> 
+> Keep in mind that these lists of users have to be persisted between calls to the API, so they should be declared in the global scope of the application.
 
 Create the following endpoints:
 
